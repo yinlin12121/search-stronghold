@@ -72,15 +72,3 @@ src/client/java/com/example/client/
     ├── ChatScreenMixin.java           拦截 @start / @stop（不发送到服务器）
     └── ClientLevelMixin.java          每客户端刻的检测 + 退出世界时清空数据
 ```
-
-## 构建
-
-```
-./gradlew build
-```
-
-产物位于 `build/libs/`。
-
-## License
-
-CC0-1.0
