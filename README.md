@@ -2,9 +2,8 @@
 
 一个 **纯客户端** 的 Fabric 模组：扔出两颗末影之眼，自动算出末地要塞的坐标。
 
-- Minecraft：**26.1.2**（Mojang 官方映射，无混淆）
+- Minecraft：**26.1.2/26.2/26.3**（Mojang 官方映射，无混淆）
 - Fabric Loader：0.19.5+
-- Fabric API：0.155.3+26.1.2
 - Java：25
 
 ## 使用方法
