@@ -1,4 +1,6 @@
 # Search Stronghold
+[English](https://github.com/yinlin12121/search-stronghold/blob/main/READMEen.md)
+
 
 一个 **纯客户端** 的 Fabric 模组：扔出两颗末影之眼，自动算出末地要塞的坐标。
 
