@@ -1,5 +1,7 @@
 # Search Stronghold
 
+[1](https://github.com/yinlin12121/search-stronghold/blob/main/search-stronghold-26.1.2/README1.md)
+
 一个 **纯客户端** 的 Fabric 模组：扔出两颗末影之眼，自动算出末地要塞的坐标。
 
 - Minecraft：**26.1.2/26.2/26.3**（Mojang 官方映射，无混淆）
