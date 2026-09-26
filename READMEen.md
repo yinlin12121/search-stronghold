@@ -1,6 +1,6 @@
 # Search Stronghold
 
-The mod is made by DeepSeek. [Prompt](https://github.com/yinlin12121/search-stronghold/edit/main/tishici.txt)
+The mod is made by DeepSeek.   [Prompt](https://github.com/yinlin12121/search-stronghold/edit/main/tishici.txt)
 
 A **pure client-side** Fabric mod: throw two eyes of ender and automatically calculate the coordinates of the stronghold.
 
