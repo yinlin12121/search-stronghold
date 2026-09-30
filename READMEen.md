@@ -7,7 +7,8 @@ A **pure client-side** Fabric mod: throw two eyes of ender and automatically cal
 - Minecraft: **26.1.2/26.2/26.3** (Mojang official mappings, no obfuscation)
 - Fabric Loader: 0.19.5+
 - Java: 25
-
+- **After installing the mod, enter "@language English" in the chat bar to switch the mod to English.(Version v1.0 does not have this feature.)**
+- 
 ## Usage
 
 1. Enter `@start` in the chat bar (this message is only intercepted locally and **will not be sent to the server**).
@@ -20,9 +21,45 @@ Calculated
 Eye of Ender 1   z=0.3x+125.4
 Eye of Ender 2   z=-0.9x+487.1
 Stronghold coordinates (1234, -567)
+Stronghold coordinates in the nether (x,z)
 ```
 
 After the calculation ends, the mod automatically returns to the dormant state and clears all data; during the calculation, you can enter `@stop` at any time to forcibly end it.
+
+## Language switching
+
+The module uses Chinese by default. You can switch the prompt language by entering the following instructions in the chat bar (this message is also only intercepted locally and * * will not be sent to the server * *):
+
+| Instruction | Prompt after switching |
+| --- | --- |
+| `@language Chinese` | 语言已切换为中文 |
+| `@language English` | Language has been switched to English. |
+
+Language names are case-insensitive, and ` @ languageenglish` and ` @ languagechinese` are acceptable. Switching languages only affects the newly generated prompts, and the output prompts will not be rewritten; Calculation status and recorded coordinates are not affected.
+
+As long as the message appears to be a ` @ language` instruction, it will be intercepted locally, and * * will not be sent to the server * *: If the language name is misspelled (for example, `@ languageFrench`) or the language name is not written, the message will be silently discarded, and the language will remain unchanged without any prompt. The text like ` @ languageenglish` without spaces is not an instruction, and it will be sent as normal chat.
+
+After switching to English, all the prompts of the module are as follows:
+
+| Situation | Prompt |
+| --- | --- |
+| Enter `@ start`| Throw the first eye of ender |
+| The first record is completed | Change position and throw the second eye of ender |
+| There are other moving eye of the last shadow in the radius of 16 squares | Failed to get coordinates; there are other eyes of ender nearby |
+| The eye of the last shadow flies down | The stronghold is already nearby |
+| Two throwing positions are less than 32 squares | Need to go farther away (beyond 32 blocks) |
+| Two straight lines are parallel, or the intersection distance exceeds 20000 grids | Calculation failed; the stronghold is too far away |
+| Other circumstances where coordinates cannot be obtained/calculated | Calculation failed |
+| Enter ` @stop` | End calculation |
+
+The output of calculation results in English mode is:
+
+```
+Calculated
+Eye of Ender 1 z=0.3x+125.4
+Eye of Ender 2 z=-0.9x+487.1
+Stronghold coordinates (1234, -567)
+Stronghold coordinates in the nether (154, -71)
 
 ## How It Works
 
