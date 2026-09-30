@@ -8,7 +8,7 @@
 - Minecraft：**26.1.2/26.2/26.3**（Mojang 官方映射，无混淆）
 - Fabric Loader：0.19.5+
 - Java：25
-
+- **After installing the mod, enter "@language English" in the chat bar to switch the mod to English.(Version v1.0 does not have this feature.)**
 ## 使用方法
 
 1. 在聊天栏输入 `@start`（这条消息只在本地被拦截，**不会发送到服务器**）。
@@ -21,9 +21,45 @@
 末影之眼1   z=0.3x+125.4
 末影之眼2   z=-0.9x+487.1
 要塞的坐标 （1234，-567）
+要塞在下界的对应坐标（154，-71）
 ```
 
 计算结束后模组自动回到休眠状态并清空所有数据；计算过程中随时可以输入 `@stop` 强行结束。
+
+## 语言切换
+
+模组默认使用中文。在聊天栏输入下面的指令即可切换提示语言（这条消息同样只在本地被拦截，**不会发送到服务器**）：
+
+| 指令 | 切换后的提示 |
+| --- | --- |
+| `@language Chinese` | 语言已切换为中文 |
+| `@language English` | Language has been switched to English. |
+
+语言名不区分大小写，`@language english`、`@language CHINESE` 都可以。切换语言只影响之后新产生的提示，已经输出的提示不会被改写；计算状态、已经记录的坐标都不受影响。
+
+只要消息看起来是 `@language` 指令，就会被本地拦截，**不会发送到服务器**：语言名写错（例如 `@language French`）或者没写语言名（`@language`）时，消息会被静默丢弃，语言保持不变，也没有任何提示。而 `@languageEnglish` 这样没有空格分隔的文本不是指令，会作为普通聊天原样发送。
+
+切换为英语后，模组的全部提示如下：
+
+| 情况 | 提示 |
+| --- | --- |
+| 输入 `@start` | Throw the first eye of ender |
+| 第一颗记录完成 | Change position and throw the second eye of ender |
+| 半径 16 格内有其他正在运动的末影之眼 | Failed to get coordinates; there are other eyes of ender nearby |
+| 末影之眼向下飞 | The stronghold is already nearby |
+| 两次扔出位置不足 32 格 | Need to go farther away (beyond 32 blocks) |
+| 两条直线平行，或交点距离超过 20000 格 | Calculation failed; the stronghold is too far away |
+| 其他无法获取坐标/无法计算的情况 | Calculation failed |
+| 输入 `@stop` | End calculation |
+
+英语模式下的计算结果输出为：
+
+```
+Calculated
+Eye of Ender 1   z=0.3x+125.4
+Eye of Ender 2   z=-0.9x+487.1
+Stronghold coordinates (1234, -567)
+Stronghold coordinates in the nether (154, -71)
 
 ## 原理
 
@@ -55,6 +91,21 @@
 - 末影之眼坐标以 `double` 全精度记录，内部计算不做任何取整。
 - 输出时两条直线保留 1 位小数，交点坐标取整。
 - 会校验采样点是否落在同一条直线上，避免混入其他末影之眼的数据。
+
+## 下界坐标
+
+末地要塞只生成在主世界，而下界与主世界的水平坐标是 8:1 的关系。
+因此计算得到的要塞坐标 `(x, z)` 除以 8 就是玩家在下界需要前往的对应坐标，
+模组会在输出要塞坐标的下一行直接给出：
+
+```
+要塞的坐标 （1234，-567）
+要塞在下界的对应坐标（154，-71）
+```
+
+换算与游戏中的传送门一致：结果向下取整，因此负坐标也是向下取整
+（例如 `-567 ÷ 8 = -70.875`，取 `-71`）。
+该换算只对水平方向（x、z）有意义，下界的 y 坐标与要塞无关，因此不做换算。
 
 ## 多人模式
 
