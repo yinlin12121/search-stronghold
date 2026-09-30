@@ -60,7 +60,7 @@ Eye of Ender 1   z=0.3x+125.4
 Eye of Ender 2   z=-0.9x+487.1
 Stronghold coordinates (1234, -567)
 Stronghold coordinates in the nether (154, -71)
-
+```
 ## 原理
 
 末影之眼被扔出后会朝着最近的末地要塞水平漂移，其平面（xz）轨迹是一条线段。
