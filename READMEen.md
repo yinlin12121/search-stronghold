@@ -21,7 +21,7 @@ Calculated
 Eye of Ender 1   z=0.3x+125.4
 Eye of Ender 2   z=-0.9x+487.1
 Stronghold coordinates (1234, -567)
-Stronghold coordinates in the nether (x,z)
+Stronghold coordinates in the nether (154，-71)
 ```
 
 After the calculation ends, the mod automatically returns to the dormant state and clears all data; during the calculation, you can enter `@stop` at any time to forcibly end it.
@@ -60,7 +60,7 @@ Eye of Ender 1 z=0.3x+125.4
 Eye of Ender 2 z=-0.9x+487.1
 Stronghold coordinates (1234, -567)
 Stronghold coordinates in the nether (154, -71)
-
+```
 ## How It Works
 
 After an eye of ender is thrown, it drifts horizontally toward the nearest stronghold, and its trajectory in the xz plane is a line segment. Record the `(x, z)` coordinates of the same eye of ender at two different times to obtain the linear function expression `z = kx + b` for the line on which that eye of ender lies. The player moves to another position and throws another one; the intersection of the two lines is the stronghold coordinates.
@@ -88,6 +88,21 @@ Entering `@start` again while in the calculation state, or entering `@stop` whil
 - Eye of ender coordinates are recorded at full `double` precision; internal calculations do not round.
 - On output, the two lines are kept to 1 decimal place, and the intersection coordinates are rounded to integers.
 - It verifies whether the sample points fall on the same line to avoid mixing in data from other eyes of ender.
+
+## The nether coordinates
+
+Strongholds only generate in the overworld, and the nether and the overworld have an 8:1 horizontal coordinate relationship.
+Therefore, the calculated stronghold coordinates `(x, z)` divided by 8 are the corresponding coordinates the player needs to go to in the nether.
+The mod will directly provide them on the next line after outputting the stronghold coordinates:
+
+```
+Stronghold coordinates (1234, -567)
+The corresponding coordinates of the stronghold in the nether (154, -71)
+```
+
+The conversion is consistent with portals in the game: the result is rounded down, so negative coordinates are also rounded down
+(for example, `-567 ÷ 8 = -70.875`, which is rounded down to `-71`).
+This conversion is only meaningful for the horizontal directions (x, z). The y coordinate in the nether is unrelated to the stronghold, so it is not converted.
 
 ## Multiplayer
 
